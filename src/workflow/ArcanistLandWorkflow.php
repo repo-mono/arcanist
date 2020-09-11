@@ -296,7 +296,10 @@ EOTEXT
     $working_copy = $this->getWorkingCopy();
     $repository_api = $working_copy->getRepositoryAPI();
 
-    $land_engine = $repository_api->getLandEngine();
+    // TODO: init only for robinhood repos
+    // $land_engine = $repository_api->getLandEngine();
+    $land_engine = new ArcanistPhlqLandEngine();
+    $land_engine->setRepositoryAPI($repository_api);
     if (!$land_engine) {
       throw new PhutilArgumentUsageException(
         pht(
