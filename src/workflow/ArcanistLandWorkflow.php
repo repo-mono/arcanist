@@ -341,6 +341,13 @@ EOTEXT
       ->setIsIncremental($is_incremental)
       ->setRevisionSymbol($revision);
 
+
+    $argv = func_get_args();
+    $args = $argv[0];
+    if(!empty($args->getArg('land-without-review'))) {
+      $land_engine->setLandWithoutReview();
+    }
+
     $land_engine->execute();
   }
 

@@ -16,6 +16,10 @@ final class ArcanistArcToolset extends ArcanistToolset {
         'param' => 'token',
         'help' => pht('Use a specific authentication token.'),
       ),
+      array(
+        'name' => 'land-without-review',
+        'help' => pht('Use to land reviews which are not accepted.'),
+      ),
     );
   }
 

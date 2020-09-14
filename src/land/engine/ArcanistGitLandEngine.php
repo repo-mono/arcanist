@@ -6,6 +6,7 @@ final class ArcanistGitLandEngine
   private $isGitPerforce;
   private $landTargetCommitMap = array();
   private $deletedBranches = array();
+  protected $landWithoutReview = false;
 
   private function setIsGitPerforce($is_git_perforce) {
     $this->isGitPerforce = $is_git_perforce;
@@ -1597,6 +1598,10 @@ final class ArcanistGitLandEngine
     throw new PhutilArgumentUsageException(
       pht(
         'Desired merge strategy is ambiguous, choose an explicit strategy.'));
+  }
+
+  public function setLandWithoutReview() {
+    $this->landWithoutReview = true;
   }
 
 }

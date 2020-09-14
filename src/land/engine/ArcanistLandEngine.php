@@ -437,6 +437,10 @@ abstract class ArcanistLandEngine
         echo tsprintf('%s', $display_ref);
       }
 
+      if(!$this->landWithoutReview) {
+        throw new ArcanistRevisionStatusException();
+      }
+
       $query = pht(
         'Land %s revision(s) in the wrong state?',
         phutil_count($not_accepted));
