@@ -6,7 +6,7 @@
 final class ArcanistRevisionStatusException extends ArcanistUsageException {
 
   public function __construct() {
-    parent::__construct(pht('Rejected: You should never land revision without review. If you know what you are doing and still want to land, use `--land-without-review` flag.'));
+    parent::__construct(pht('Rejected: by policy, you should not land unreviewed changes. If you know what you are doing and still want to land, use `--land-without-review` flag.'));
   }
 
 }
