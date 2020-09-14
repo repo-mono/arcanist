@@ -174,7 +174,6 @@ class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
         $remote_url = $api->getRemoteUrl();
         print($this->landRevision($rev_id, $remote_url));
         print("\n");
-        sleep(2);
         print($this->fetchRevisionLogs($rev_id));
       }
     }
