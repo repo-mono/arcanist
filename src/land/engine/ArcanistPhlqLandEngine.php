@@ -6,6 +6,11 @@ class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
   protected $phlqLandPath = "/land/D";
 
   function __construct($phlq_url) {
+    if(empty($phlq_url))
+      throw new PhutilArgumentUsageException(
+        pht('PHLQ url not found. Set %s in your .arcconfig.', 'phlq.url')
+      );
+
     $this->phlqUrl = $phlq_url;
   }
 

@@ -296,7 +296,7 @@ EOTEXT
     $working_copy = $this->getWorkingCopy();
     $repository_api = $working_copy->getRepositoryAPI();
 
-    // TODO: init only for robinhood repos
+    // TODO: check and init PHLQ land engine only for robinhood repos
     // $land_engine = $repository_api->getLandEngine();
     $land_engine = new ArcanistPhlqLandEngine($this->getPhlqUrl());
     $land_engine->setRepositoryAPI($repository_api);
