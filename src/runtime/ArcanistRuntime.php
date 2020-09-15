@@ -120,13 +120,16 @@ final class ArcanistRuntime {
     $conduit_engine = $this->newConduitEngine($config, $args);
     $this->conduitEngine = $conduit_engine;
 
+    $phlq_url = $config->getConfig('phlq.uri');
+
     $phutil_workflows = array();
     foreach ($workflows as $key => $workflow) {
       $workflow
         ->setRuntime($this)
         ->setConfigurationEngine($config_engine)
         ->setConfigurationSourceList($config)
-        ->setConduitEngine($conduit_engine);
+        ->setConduitEngine($conduit_engine)
+        ->setPhlqUrl($phlq_url);
 
       $phutil_workflows[$key] = $workflow->newPhutilWorkflow();
     }

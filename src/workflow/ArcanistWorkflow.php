@@ -77,6 +77,8 @@ abstract class ArcanistWorkflow extends Phobject {
 
   private $promptMap;
 
+  private $phlq_url;
+
   final public function setToolset(ArcanistToolset $toolset) {
     $this->toolset = $toolset;
     return $this;
@@ -2464,4 +2466,12 @@ abstract class ArcanistWorkflow extends Phobject {
     return $this;
   }
 
+  final public function setPhlqUrl($url) {
+    $this->phlq_url = $url;
+    return $this;
+  }
+
+  final public function getPhlqUrl() {
+    return $this->phlq_url;
+  }
 }

@@ -158,6 +158,21 @@ final class ArcanistArcConfigurationEngineExtension
           pht(
             'Specifies the default behavior when "arc land" is run with '.
             'no "--strategy" flag.')),
+      id(new ArcanistStringConfigOption())
+        ->setKey('phlq.uri')
+        ->setAliases(
+          array(
+            'phlq_uri',
+          ))
+        ->setSummary(pht('PHLQ install to connect to.'))
+        ->setHelp(
+          pht(
+            'Associates this working copy with a specific installation of '.
+            'PHLQ.'))
+        ->setExamples(
+          array(
+            'https://phlq/',
+          )),
     );
   }
 

@@ -1,9 +1,13 @@
 <?php
 
 class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
-  protected $phlqUrl = "http://web:5000";
+  protected $phlqUrl;
   protected $phlqLogsPath = "/log/D";
   protected $phlqLandPath = "/land/D";
+
+  function __construct($phlq_url) {
+    $this->phlqUrl = $phlq_url;
+  }
 
   function landRevision($rev_id, $remote_url) {
     $handle = curl_init($this->phlqUrl . $this->phlqLandPath . $rev_id);
@@ -15,21 +19,7 @@ class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
     curl_setopt($handle, CURLOPT_HTTPHEADER, array(                                                                          
       'Content-Type: application/json',                                                                                
       'Content-Length: ' . strlen($data_string))                                                                       
-    ); 
-
-    $response = curl_exec($handle);
-    $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-    curl_close($handle);
-
-    if($httpCode == 404)
-      return null;
-
-    return $response;
-  }
-
-  function fetchRevisionLogs($rev_id) {
-    $handle = curl_init($this->phlqUrl . $this->phlqLogsPath . $rev_id);
-    curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+    );
 
     $response = curl_exec($handle);
     $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
@@ -163,19 +153,13 @@ class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
       ->setQuery($query)
       ->execute();
 
-    print_r($revision_ids);
     foreach ($revision_ids as $rev_id) {
-      $rev_logs = $this->fetchRevisionLogs($rev_id);
-      if($rev_logs) {
-        // Got revision landing logs, display and exit.
-        print($rev_logs);
-        // TODO ask asker if he wants to re land ?
-      } else {
-        $remote_url = $api->getRemoteUrl();
-        print($this->landRevision($rev_id, $remote_url));
-        print("\n");
-        print($this->fetchRevisionLogs($rev_id));
-      }
+      $remote_url = $api->getRemoteUrl();
+      $this->landRevision($rev_id, $remote_url);
+      $message = "Land request send. Landing logs: ".$this->phlqUrl . $this->phlqLogsPath . $rev_id;
+      $log->writeSuccess(
+        pht('DONE'),
+        pht($message));
     }
   }
 }
