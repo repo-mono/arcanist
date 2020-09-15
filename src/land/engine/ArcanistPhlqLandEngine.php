@@ -158,6 +158,8 @@ class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
       ->setQuery($query)
       ->execute();
 
+    $this->confirmRevisions($sets);
+
     foreach ($revision_ids as $rev_id) {
       $remote_url = $api->getRemoteUrl();
       $this->landRevision($rev_id, $remote_url);
