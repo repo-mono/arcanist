@@ -1453,7 +1453,7 @@ phutil_register_library_map(array(
     'ArcanistPasteSymbolRef' => 'ArcanistSimpleSymbolRef',
     'ArcanistPasteWorkflow' => 'ArcanistArcWorkflow',
     'ArcanistPatchWorkflow' => 'ArcanistWorkflow',
-    'ArcanistPhlqLandEngine' => 'ArcanistLandEngine',
+    'ArcanistPhlqLandEngine' => 'ArcanistGitLandEngine',
     'ArcanistPhpLinter' => 'ArcanistExternalLinter',
     'ArcanistPhpLinterTestCase' => 'ArcanistExternalLinterTestCase',
     'ArcanistPhpcsLinter' => 'ArcanistExternalLinter',
