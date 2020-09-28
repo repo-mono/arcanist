@@ -90,8 +90,17 @@ abstract class ArcanistWorkflow extends Phobject {
     return $this->not_accepted_message;
   }
 
+  final public function setPhlqUrl($url) {
+    $this->phlq_url = $url;
+    return $this;
+  }
+
+  final public function getPhlqUrl() {
+    return $this->phlq_url;
+  }
+
   // END LOCAL MODIFICATION
-  
+
   final public function setToolset(ArcanistToolset $toolset) {
     $this->toolset = $toolset;
     return $this;
@@ -2477,14 +2486,5 @@ abstract class ArcanistWorkflow extends Phobject {
     }
 
     return $this;
-  }
-
-  final public function setPhlqUrl($url) {
-    $this->phlq_url = $url;
-    return $this;
-  }
-
-  final public function getPhlqUrl() {
-    return $this->phlq_url;
   }
 }
