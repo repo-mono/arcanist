@@ -123,6 +123,7 @@ final class ArcanistRuntime {
     $this->conduitEngine = $conduit_engine;
 
     $phlq_url = $config->getConfig('phlq.uri');
+    $land_with_phlq = $config->getConfig('phlq');
 
     $phutil_workflows = array();
     foreach ($workflows as $key => $workflow) {
@@ -133,6 +134,7 @@ final class ArcanistRuntime {
         ->setConduitEngine($conduit_engine)
         ->setNotAcceptedMessage(
           $config->getConfig('arc.land.notaccepted.message'))
+        ->setLandWithPHLQ($land_with_phlq)
         ->setPhlqUrl($phlq_url);
 
       $phutil_workflows[$key] = $workflow->newPhutilWorkflow();

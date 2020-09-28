@@ -168,13 +168,20 @@ final class ArcanistArcConfigurationEngineExtension
         ->setSummary(
           pht(
             'Error message when attempting to land a non-accepted revision.')),
+      id(new ArcanistBoolConfigOption())
+        ->setKey('phlq')
+        ->setDefaultValue(true)
+        ->setSummary(pht('PHLQ install to connect to.'))
+        ->setHelp(
+          pht(
+            'Use PHLQ to land changes')),
       id(new ArcanistStringConfigOption())
         ->setKey('phlq.uri')
         ->setAliases(
           array(
             'phlq_uri',
           ))
-        ->setSummary(pht('PHLQ install to connect to.'))
+        ->setSummary(pht('PHLQ instance url.'))
         ->setHelp(
           pht(
             'Associates this working copy with a specific installation of '.

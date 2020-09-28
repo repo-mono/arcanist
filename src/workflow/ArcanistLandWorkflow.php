@@ -296,10 +296,12 @@ EOTEXT
     $working_copy = $this->getWorkingCopy();
     $repository_api = $working_copy->getRepositoryAPI();
 
-    // TODO: check and init PHLQ land engine only for robinhood repos
-    // $land_engine = $repository_api->getLandEngine();
-    $land_engine = new ArcanistPhlqLandEngine($this->getPhlqUrl());
-    $land_engine->setRepositoryAPI($repository_api);
+    if($this->getLandWithPHLQ()) {
+      $land_engine = new ArcanistPhlqLandEngine($this->getPhlqUrl());
+      $land_engine->setRepositoryAPI($repository_api);
+    } else {
+      $land_engine = $repository_api->getLandEngine();
+    }
 
     if (!$land_engine) {
       throw new PhutilArgumentUsageException(

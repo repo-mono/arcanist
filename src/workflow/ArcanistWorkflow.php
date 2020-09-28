@@ -79,6 +79,7 @@ abstract class ArcanistWorkflow extends Phobject {
 
   // LOCAL MODIFICATION
   private $not_accepted_message;
+  private $land_with_phlq;
   private $phlq_url;
 
   final public function setNotAcceptedMessage($message) {
@@ -97,6 +98,15 @@ abstract class ArcanistWorkflow extends Phobject {
 
   final public function getPhlqUrl() {
     return $this->phlq_url;
+  }
+
+  final public function setLandWithPHLQ(bool $val) {
+    $this->land_with_phlq = $val;
+    return $this;
+  }
+
+  final public function getLandWithPHLQ() {
+    return $this->land_with_phlq;
   }
 
   // END LOCAL MODIFICATION
