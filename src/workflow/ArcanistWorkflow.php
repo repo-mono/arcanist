@@ -77,8 +77,21 @@ abstract class ArcanistWorkflow extends Phobject {
 
   private $promptMap;
 
+  // LOCAL MODIFICATION
+  private $not_accepted_message;
   private $phlq_url;
 
+  final public function setNotAcceptedMessage($message) {
+    $this->not_accepted_message = $message;
+    return $this;
+  }
+
+  final public function getNotAcceptedMessage() {
+    return $this->not_accepted_message;
+  }
+
+  // END LOCAL MODIFICATION
+  
   final public function setToolset(ArcanistToolset $toolset) {
     $this->toolset = $toolset;
     return $this;

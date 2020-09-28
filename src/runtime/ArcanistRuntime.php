@@ -43,6 +43,8 @@ final class ArcanistRuntime {
       $log->writeError(pht('---'), $ex->getMessage());
     } catch (ArcanistConduitAuthenticationException $ex) {
       $log->writeError($ex->getTitle(), $ex->getBody());
+    } catch (ArcanistRevisionStatusException $ex) {
+      $log->writeError(pht('---'), $ex->getMessage());
     }
 
     return 1;
@@ -129,6 +131,8 @@ final class ArcanistRuntime {
         ->setConfigurationEngine($config_engine)
         ->setConfigurationSourceList($config)
         ->setConduitEngine($conduit_engine)
+        ->setNotAcceptedMessage(
+          $config->getConfig('arc.land.notaccepted.message'))
         ->setPhlqUrl($phlq_url);
 
       $phutil_workflows[$key] = $workflow->newPhutilWorkflow();
