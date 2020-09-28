@@ -170,7 +170,7 @@ final class ArcanistArcConfigurationEngineExtension
             'Error message when attempting to land a non-accepted revision.')),
       id(new ArcanistBoolConfigOption())
         ->setKey('phlq')
-        ->setDefaultValue(true)
+        ->setDefaultValue(false)
         ->setSummary(pht('PHLQ install to connect to.'))
         ->setHelp(
           pht(
