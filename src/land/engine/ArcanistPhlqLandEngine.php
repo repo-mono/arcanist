@@ -179,7 +179,7 @@ class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
         pht('DONE'),
         pht($message));
     }
-
+ 
     $landing_errors = $this->tailLogs($revision_ids, $log);
     if($landing_errors == 0)
       $this->cleanTags($api, $log);
