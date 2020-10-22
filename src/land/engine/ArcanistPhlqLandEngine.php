@@ -180,10 +180,23 @@ class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
         pht($message));
     }
 
-    $this->TailLogs($revision_ids);
+    $landing_errors = $this->tailLogs($revision_ids, $log);
+    if($landing_errors == 0)
+      $this->cleanTags($api, $log);
   }
 
-  function TailLogs($revision_ids) {
+  function cleanTags($api, $log) {
+    $log->writeStatus(
+      pht('CLEANUP'),
+      pht('Cleaning tags.'));
+
+    $api->cleanTags();
+  }
+
+  function tailLogs($revision_ids, $log) {
+    $tries = 0;
+    $landing_errors = 0;
+    $last_state = [];
     $tail_position = [];
     foreach ($revision_ids as $rev_id)
       $tail_position[$rev_id] = 0;
@@ -197,10 +210,28 @@ class ArcanistPhlqLandEngine extends ArcanistGitLandEngine {
 
         print($out);
 
-        if($land_state == "DONE" || $land_state == "FAILED")
+        if($land_state == "DONE" || $land_state == "ERROR") {
           unset($tail_position[$rev_id]);
+
+          $msg = "D".$rev_id.": ".$land_state;
+          if($land_state == "DONE")
+            $log->writeSuccess(pht("LANDING"), pht($msg));
+
+          if($land_state == "ERROR") {
+            $log->writeError(pht("LANDING"), pht($msg));
+            $landing_errors++;
+          }
+
+        } else if($tries % 10 == 0) {
+          $log->writeStatus(pht("LANDING"), pht("D".$rev_id.": ".$land_state));
+        } else if($last_state[$rev_id] && $land_state != $last_state[$rev_id]) {
+          $log->writeStatus(pht("LANDING"), pht("D".$rev_id.": ".$land_state));
+        }
+        $last_state[$rev_id] = $land_state;
       }
+      $tries += 1;
       if($tail_position) sleep(4);
     }
+    return $landing_errors;
   }
 }
